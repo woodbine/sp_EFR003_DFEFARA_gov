@@ -33,7 +33,7 @@ for block in blocks:
 	title = block.find('div',{'class':'inner2'}).getText()
 	title = title.strip()
 	
-	if len(title.split()) > 3:
+	if len(title.split()) > 4:
 		print "not a usable file"
 	else:
 		# create the right strings for the new filename
