@@ -32,7 +32,6 @@ for block in blocks:
 	link = a['href']
 	title = block.find('div',{'class':'inner2'}).getText()
 	title = title.strip()
-	title = title.replace(' return','')
 	
 	if len(title.split()) > 3:
 		print "not a usable file"
@@ -40,7 +39,11 @@ for block in blocks:
 		# create the right strings for the new filename
 		title = title.strip()
 		csvYr = title.split(' ')[-2]
+		print csvYr
+		
 		csvMth = title.split(' ')[-3][:3]
+		print csvMth
+		
 		csvMth = convert_mth_strings(csvMth);
 		
 		filename = entity_id + "_" + csvYr + "_" + csvMth
