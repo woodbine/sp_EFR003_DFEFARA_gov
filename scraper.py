@@ -32,6 +32,7 @@ for block in blocks:
 	link = a['href']
 	title = block.find('div',{'class':'inner2'}).getText()
 	title = title.strip()
+	title = title.replace(' return','')
 	
 	if len(title.split()) > 3:
 		print "not a usable file"
