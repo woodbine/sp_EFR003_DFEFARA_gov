@@ -96,24 +96,23 @@ soup = BeautifulSoup(html, 'lxml')
 
 #### SCRAPE DATA
 
-blocks = soup.findAll('div', {'class':'dataset-resource'})[1:]
+blocks = soup.findAll('div', {'class':'dataset-resource'})
 
 for block in blocks:
-    a = block.findAll('a')[2]
+    a = ''
+    try:
+        a = block.findAll('a')[2]
+    except:
+        pass
+    if not a:
+        continue
     link = a['href']
-    title = block.find('div',{'class':'inner2'}).getText()
-    title = title.strip()
-
-    if len(title.split()) > 4:
-        print "not a usable file"
-    else:
-        title = title.strip()
-        csvYr = title.split(' ')[-2]
-        csvMth = title.split(' ')[-3][:3]
-        if not csvMth:
-            csvMth = title.split(' ')[-4][:3]
-        csvMth = convert_mth_strings(csvMth.upper())
-        data.append([csvYr, csvMth, link])
+    title = block.find('span','inner-cell').text.strip().split(' ')[0].strip()
+    csvYr = title.split('/')[-1]
+    csvMth = title.split('/')[0]
+    if len(csvMth)==1:
+        csvMth = '0'+csvMth
+    data.append([csvYr, csvMth, link])
 
 #### STORE DATA 1.0
 
